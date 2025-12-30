@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SIGMA - Sistem Indeks Kelayakan dan Kematangan Pangan</title>
+    <meta
+      name="description"
+      content="Real-time fruit freshness monitoring system with ESP32 and color sensors"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <div class="header-content">
+          <div class="logo">
+            <h1>🍎 SIGMA</h1>
+            <p class="subtitle">
+              Sistem Indeks Kelayakan dan Kematangan Pangan
+            </p>
+          </div>
+          <div class="connection-status">
+            <div class="status-indicator" id="connectionStatus">
+              <span class="status-dot"></span>
+              <span class="status-text">Connecting...</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+      <div class="container">
+        <!-- Stats Overview -->
+        <section class="stats-section">
+          <h2 class="section-title">📊 Overview</h2>
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon">🍏</div>
+              <div class="stat-info">
+                <p class="stat-label">Fresh Fruits</p>
+                <p class="stat-value" id="freshCount">0</p>
+              </div>
+            </div>
+            <div class="stat-card warning">
+              <div class="stat-icon">🟡</div>
+              <div class="stat-info">
+                <p class="stat-label">Warning</p>
+                <p class="stat-value" id="warningCount">0</p>
+              </div>
+            </div>
+            <div class="stat-card danger">
+              <div class="stat-icon">🔴</div>
+              <div class="stat-info">
+                <p class="stat-label">Rotten</p>
+                <p class="stat-value" id="rottenCount">0</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">📈</div>
+              <div class="stat-info">
+                <p class="stat-label">Total Readings</p>
+                <p class="stat-value" id="totalReadings">0</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Live Sensor Display -->
+        <section class="sensor-section">
+          <h2 class="section-title">📡 Live Sensor Data</h2>
+          <div id="latestSensors" class="sensors-grid">
+            <!-- Dynamic sensor cards will be inserted here -->
+            <div class="empty-state">
+              <p>Waiting for sensor data...</p>
+              <p class="empty-hint">
+                Make sure your ESP32 is publishing to MQTT
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Fruit Status Cards -->
+        <section class="fruits-section">
+          <h2 class="section-title">🍎 Monitored Fruits</h2>
+          <div id="fruitsGrid" class="fruits-grid">
+            <!-- Dynamic fruit cards will be inserted here -->
+          </div>
+        </section>
+
+        <!-- Historical Data -->
+        <section class="chart-section">
+          <h2 class="section-title">📈 Historical Data</h2>
+          <div class="chart-controls">
+            <label for="fruitSelect">Select Fruit:</label>
+            <select id="fruitSelect">
+              <option value="">All Fruits</option>
+            </select>
+            <label for="timeRange">Time Range:</label>
+            <select id="timeRange">
+              <option value="1">Last 1 Hour</option>
+              <option value="6" selected>Last 6 Hours</option>
+              <option value="24">Last 24 Hours</option>
+              <option value="72">Last 3 Days</option>
+            </select>
+            <button id="refreshChart" class="btn-refresh">🔄 Refresh</button>
+          </div>
+          <div class="chart-container">
+            <canvas id="sensorChart"></canvas>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; 2025 SIGMA Project | ESP32 Fruit Monitoring System</p>
+      </div>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
